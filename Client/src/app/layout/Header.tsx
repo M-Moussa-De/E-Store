@@ -56,7 +56,11 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
           <Typography variant="h6" component={NavLink} to="/" sx={navStyles}>
             E-Store
           </Typography>
-          <Switch checked={darkMode} onClick={handleThemeChange} />
+          <Switch
+            checked={darkMode}
+            onClick={handleThemeChange}
+            name="theme switcher"
+          />
         </Box>
 
         <Box>
