@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-
 function App() {
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("darkMode") === "dark" ? true : false
