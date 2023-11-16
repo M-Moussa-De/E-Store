@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../app/models/Product";
-import axios from "axios";
 import {
   CardMedia,
   Divider,
@@ -14,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import agent from "../../app/api/agent";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -38,9 +38,8 @@ export default function ProductDetails() {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/Products/${id}`)
-      .then((response) => setProduct(response.data))
+    id && agent.Catalog.details(parseInt(id))
+      .then((product) => setProduct(product))
       .catch((error) =>
         process.env.NODE_ENV === "development" ? console.log(error) : ""
       )

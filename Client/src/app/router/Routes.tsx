@@ -16,6 +16,7 @@ export const router = createBrowserRouter([
             {path: 'catalog/:id', element: <ProductDetails />},
             {path: 'about', element: <AboutPage />},
             {path: 'contact', element: <ContactPage />},
+            {path: '*', element: '404 NOT FOUND PAGE :('},
         ]
     }
 ]);
