@@ -41,7 +41,7 @@ export default function ProductDetails() {
     id && agent.Catalog.details(parseInt(id))
       .then((product) => setProduct(product))
       .catch((error) =>
-        process.env.NODE_ENV === "development" ? console.log(error) : ""
+        process.env.NODE_ENV === "development" ? console.log(error.response) : ""
       )
       .finally(() => setLoading(false));
   }, [id]);
