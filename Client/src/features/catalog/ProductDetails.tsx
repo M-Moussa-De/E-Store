@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFound";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -38,17 +39,18 @@ export default function ProductDetails() {
   };
 
   useEffect(() => {
-    id && agent.Catalog.details(parseInt(id))
-      .then((product) => setProduct(product))
-      .catch((error) =>
-        process.env.NODE_ENV === "development" ? console.log(error) : ""
-      )
-      .finally(() => setLoading(false));
+    id &&
+      agent.Catalog.details(parseInt(id))
+        .then((product) => setProduct(product))
+        .catch((error) =>
+          process.env.NODE_ENV === "development" ? console.log(error) : ""
+        )
+        .finally(() => setLoading(false));
   }, [id]);
 
   if (loading) return <h4>Loading...</h4>;
 
-  if (!product) return <h3>No product was found.</h3>;
+  if (!product) return <NotFound />;
 
   return (
     <Grid
