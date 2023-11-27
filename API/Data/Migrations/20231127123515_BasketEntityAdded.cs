@@ -16,7 +16,7 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BuyerId = table.Column<int>(type: "INTEGER", nullable: false)
+                    BuyerId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
