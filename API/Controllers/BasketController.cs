@@ -1,4 +1,5 @@
 using API.Data;
+using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,21 +14,18 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Basket>> GetBasketAsync()
+        [HttpGet(Name = "GetBasketAsync")]
+        public async Task<ActionResult<BasketDto>> GetBasketAsync()
         {
             var basket = await RetrieveBasketAsync();
 
-            if (basket == null)
-            {
-                return NotFound();
-            }
+            if (basket == null) return NotFound();
 
-            return basket;
+            return MapBasketToDto(basket);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddItemToBasketAsync(int productId, int quantity)
+        public async Task<ActionResult<BasketDto>> AddItemToBasketAsync(int productId, int quantity)
         {
             var basket = await RetrieveBasketAsync();
 
@@ -41,16 +39,26 @@ namespace API.Controllers
 
             var result = await _context.SaveChangesAsync() > 0;
 
-            if (result) return StatusCode(201);
+            if (result) return CreatedAtRoute("GetBasketAsync", MapBasketToDto(basket));
 
             return BadRequest(new ProblemDetails { Title = "Problem saving item to basket." });
         }
 
-        // [HttpDelete]
-        // public async Task<ActionResult> RemoveItemFromBasketAsync(int productId, int quantity)
-        // {
-        //   return Ok();
-        // }
+        [HttpDelete]
+        public async Task<ActionResult> RemoveItemFromBasketAsync(int productId, int quantity)
+        {
+            var basket = await RetrieveBasketAsync();
+
+            if (basket == null) return NotFound();
+
+            basket.RemoveItem(productId, quantity);
+
+            var result = await _context.SaveChangesAsync() > 0;
+
+            if (result) return Ok();
+
+            return BadRequest(new ProblemDetails { Title = "Problem removing item from the basket" });
+        }
 
         private async Task<Basket> RetrieveBasketAsync()
         {
@@ -78,6 +86,25 @@ namespace API.Controllers
             return basket;
         }
 
+        private static ActionResult<BasketDto> MapBasketToDto(Basket basket)
+        {
+            return new BasketDto
+            {
+                Id = basket.Id,
+                BuyerId = basket.BuyerId,
+                Items = basket.Items.Select(item => new BasketItemDto
+                {
+                    ProductId = item.ProductId,
+                    Name = item.Product.Name,
+                    Price = item.Product.Price,
+                    PictureUrl = item.Product.PictureUrl,
+                    Type = item.Product.Type,
+                    Brand = item.Product.Brand,
+                    Quantity = item.Quantity
+
+                }).ToList()
+            };
+        }
 
     }
 }
