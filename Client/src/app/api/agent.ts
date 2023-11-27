@@ -2,21 +2,13 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 
-<<<<<<< HEAD
-const sleep = () => new Promise(resolve => setTimeout(resolve, 1000));
-=======
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
->>>>>>> 93ccb80ba1097fcdc10f8a4b4167202559a6dc62
 
 axios.defaults.baseURL = 'http://localhost:5000/api/';
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-<<<<<<< HEAD
-axios.interceptors.response.use(async response  => {
-=======
 axios.interceptors.response.use(async (response: AxiosResponse)  => {
->>>>>>> 93ccb80ba1097fcdc10f8a4b4167202559a6dc62
     await sleep();
     return response;
 }, ((error: AxiosError) => {
