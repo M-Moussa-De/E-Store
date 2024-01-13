@@ -8,7 +8,7 @@ This is an E-Store where users explore, search, filter, add product/s into the c
 
 - Vite
 - React
-- Redux
+- Redux/Redux Toolkit/Redux Thunk
 - TypeScript
 - Axios
 - Material UI
@@ -17,5 +17,6 @@ This is an E-Store where users explore, search, filter, add product/s into the c
 
 - .Net 7 (API)
 - Entity Framework
+- LINQ
 - SQLite (Devlopment)
 - PostgreSQL (Production)
