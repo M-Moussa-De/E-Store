@@ -22,7 +22,7 @@ import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { removeItem, setBasket } from "./basketSlice";
 
 export default function BasketPage() {
-  const { basket} = useAppSelector(state => state.basket);
+  const { basket } = useAppSelector((state) => state.basket);
   const dispatch = useAppDispatch();
   const [status, setStatus] = useState({
     loading: false,
@@ -40,13 +40,25 @@ export default function BasketPage() {
   const handleRemoveItem = (productId: number, quantity = 1, name: string) => {
     setStatus({ loading: true, name });
     agent.Basket.removeItem(productId, quantity)
-      .then(() => dispatch(removeItem({productId, quantity})))
+      .then(() => dispatch(removeItem({ productId, quantity })))
       .catch((error) => console.log(error))
       .finally(() => setStatus({ loading: false, name: "" }));
   };
 
-  if (!basket)
-    return <Typography variant="h3">Your basket is empty</Typography>;
+  if (!basket || !basket.items || basket.items.length === 0)
+    return (
+      <Box textAlign="center">
+        <Typography variant="h3" fontSize={18} color="rgba(0 0 0 /0.8)" mb={3}>
+          Your basket is empty
+        </Typography>
+
+        <Link to="/catalog">
+          <Button variant="contained" color="secondary">
+            Continue shopping
+          </Button>
+        </Link>
+      </Box>
+    );
 
   return (
     <>
@@ -111,7 +123,9 @@ export default function BasketPage() {
                     <Add />
                   </LoadingButton>
                 </TableCell>
-                <TableCell>{currencyFormat(item.price)}</TableCell>
+                <TableCell>
+                  {currencyFormat(item.price * item.quantity)}
+                </TableCell>
                 <TableCell>
                   <LoadingButton
                     aria-label="delete"
