@@ -39,7 +39,9 @@ const navStyles = {
     color: "grey.500",
   },
   "&.active": {
-    color: "grey.400",
+    '&:not(a.siteTitle)': {
+      color: "grey.400",
+    }
   },
 };
 
@@ -58,7 +60,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
         }}
       >
         <Box display="flex" alignItems="center">
-          <Typography variant="h6" component={NavLink} to="/" sx={navStyles}>
+          <Typography variant="h6" component={NavLink} to="/" sx={navStyles} className="siteTitle">
             E-Store
           </Typography>
           <Switch
