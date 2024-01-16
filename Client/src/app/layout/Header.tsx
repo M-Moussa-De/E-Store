@@ -36,7 +36,9 @@ const navStyles = {
   typography: "h6",
   fontSize: "0.9rem",
   "&:hover": {
-    color: "grey.500",
+    '&:not(a.siteTitle)': {
+      color: "grey.500",
+    }
   },
   "&.active": {
     '&:not(a.siteTitle)': {
