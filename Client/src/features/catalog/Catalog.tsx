@@ -8,11 +8,15 @@ import { fetchProductsAsync, productSelectors } from "./catalogSlice";
 export default function Catalog() {
   const products = useAppSelector(productSelectors.selectAll);
   const dispatch = useAppDispatch();
-  const {productLoaded, status} = useAppSelector(state => state.catalog); 
+  const {productLoaded, status, filtersLoaded} = useAppSelector(state => state.catalog); 
 
   useEffect(() => {
-    if(!productLoaded) dispatch(fetchProductsAsync());    
+    if(!productLoaded) dispatch(fetchProductsAsync());
   }, [productLoaded, dispatch]);
+
+  useEffect(() => {
+    if(!filtersLoaded) dispatch(fetchProductsAsync());    
+  }, [filtersLoaded, dispatch]);
 
   if(status.includes('pending')) return <LoadingComponent message='Loading products...' />
   
