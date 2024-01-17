@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function ProductCard({ product }: Props) {
-  const {status} = useAppSelector(state => state.basket);
+  const { status } = useAppSelector((state) => state.basket);
   const dispatch = useAppDispatch();
 
   return (
@@ -31,7 +31,7 @@ export default function ProductCard({ product }: Props) {
             {product.name.charAt(0).toUpperCase()}
           </Avatar>
         }
-        title={product.name}
+        title={product.name.slice(0, 20)}
         titleTypographyProps={{
           sx: { fontWeight: "bold", color: "primary.main" },
         }}
@@ -57,7 +57,9 @@ export default function ProductCard({ product }: Props) {
         <LoadingButton
           loading={status.includes(`pendingAddItem${product.id}`)}
           size="small"
-          onClick={() => dispatch(addItemToBasketAsync({productId: product.id}))}
+          onClick={() =>
+            dispatch(addItemToBasketAsync({ productId: product.id }))
+          }
         >
           Add to cart
         </LoadingButton>

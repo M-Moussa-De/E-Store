@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { router } from "../router/Routes";
+import { PaginatedResponse } from "../models/pagination";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
 
@@ -11,6 +12,11 @@ const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.response.use(async (response: AxiosResponse)  => {
     await sleep();
+    const pagination = response.headers['x-pagination'];
+    if(pagination) {
+        response.data = new PaginatedResponse(response.data, JSON.parse(pagination));
+        return response;
+    }
     return response;
 }, ((error: AxiosError) => {
     // process.env.NODE_ENV === "development" ? console.log('Caught by interceptor', error) : ""

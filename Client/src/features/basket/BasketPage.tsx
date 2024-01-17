@@ -23,7 +23,6 @@ export default function BasketPage() {
   const { basket, status } = useAppSelector((state) => state.basket);
   const dispatch = useAppDispatch();
 
-
   if (!basket || !basket.items || basket.items.length === 0)
     return (
       <Box textAlign="center">
@@ -60,12 +59,22 @@ export default function BasketPage() {
               >
                 <TableCell component="th" scope="row">
                   <Box display="flex" alignItems="center">
-                    <img
-                      src={item.pictureUrl}
-                      alt={item.name}
-                      style={{ height: 50, marginRight: 20 }}
-                    />
-                    <span>{item.name}</span>
+                    <Link
+                      to={`/catalog/${item.productId}`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        color: "inherit",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <img
+                        src={item.pictureUrl}
+                        alt={item.name}
+                        style={{ height: 50, marginRight: 20 }}
+                      />
+                      <span>{item.name}</span>
+                    </Link>
                   </Box>
                 </TableCell>
                 <TableCell component="th" scope="row">
@@ -76,7 +85,15 @@ export default function BasketPage() {
                     aria-label="remove item from cart"
                     color="error"
                     loading={status === `pendingRemoveItem${item.productId}rem`}
-                    onClick={() => dispatch(removeBasketItemAsync({productId: item.productId, quantity: 1, name: 'rem'}))}
+                    onClick={() =>
+                      dispatch(
+                        removeBasketItemAsync({
+                          productId: item.productId,
+                          quantity: 1,
+                          name: "rem",
+                        })
+                      )
+                    }
                   >
                     <Remove />
                   </LoadingButton>
@@ -85,7 +102,11 @@ export default function BasketPage() {
                     aria-label="add item to cart"
                     color="secondary"
                     loading={status === `pendingAddItem${item.productId}`}
-                    onClick={() =>dispatch(addItemToBasketAsync({productId: item.productId}))}
+                    onClick={() =>
+                      dispatch(
+                        addItemToBasketAsync({ productId: item.productId })
+                      )
+                    }
                   >
                     <Add />
                   </LoadingButton>
@@ -98,7 +119,16 @@ export default function BasketPage() {
                     aria-label="delete"
                     color="error"
                     loading={status === `pendingRemoveItem${item.productId}del`}
-                    onClick={() => dispatch(removeBasketItemAsync({productId: item.productId, quantity: item.quantity, name: 'del'}))}>
+                    onClick={() =>
+                      dispatch(
+                        removeBasketItemAsync({
+                          productId: item.productId,
+                          quantity: item.quantity,
+                          name: "del",
+                        })
+                      )
+                    }
+                  >
                     <Delete />
                   </LoadingButton>
                 </TableCell>
