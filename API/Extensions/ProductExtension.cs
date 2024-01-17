@@ -15,5 +15,12 @@ namespace API.Extensions
                 _ => query.OrderBy(p => p.Name),
             };
         }
+
+        public static IQueryable<Product> Search(this IQueryable<Product> query, string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm)) return query;
+
+            return query.Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()));
+        }
     }
 }
