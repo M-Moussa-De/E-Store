@@ -7,12 +7,11 @@ const productAdapter = createEntityAdapter<Product>();
 
 export const fetchProductsAsync =  createAsyncThunk<Product[]>(
     'catalog/fetchProductsAsync',
-    async () => {
+    async (_, thunkAPI) => {
         try {
             return await agent.Catalog.list();
-        } catch (error) {
-            console.log(error);
-            return [];
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue({error: error.data});
         }
     }
 )
@@ -22,8 +21,8 @@ export const fetchProductAsync = createAsyncThunk<Product, number>(
     async (productId, thunkAPI) => {
         try {
             return await agent.Catalog.details(productId);
-        } catch (error) {
-            return thunkAPI.rejectWithValue({error: error.message});
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue({error: error.data});
         }
     }
 )
@@ -37,15 +36,16 @@ export const catalogSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(fetchProductsAsync.pending, (state) => {
-            state.status = 'pendingFeatchProducts';
+            state.status = 'pendingFeatchProducts' ;
         })
         builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
             productAdapter.setAll(state, action.payload);
             state.status = 'idle';
             state.productLoaded = true;
         })
-        builder.addCase(fetchProductsAsync.rejected, (state) => {
+        builder.addCase(fetchProductsAsync.rejected, (state, action) => {
             state.status = 'idle';
+            console.log(action)
         })
         builder.addCase(fetchProductAsync.pending, (state) => {
             state.status = 'pendingFeatchProduct';

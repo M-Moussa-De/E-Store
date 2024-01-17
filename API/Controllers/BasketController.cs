@@ -27,13 +27,11 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<BasketDto>> AddItemToBasketAsync(int productId, int quantity)
         {
-            var basket = await RetrieveBasketAsync();
-
-            if (basket == null) basket = CreateBasket();
+            var basket = await RetrieveBasketAsync() ?? CreateBasket();
 
             var product = await _context.Products.FindAsync(productId);
 
-            if (product == null) return NotFound();
+            if (product == null) return BadRequest(new ProblemDetails { Title = "Product not found." });
 
             basket.AddItem(product, quantity);
 

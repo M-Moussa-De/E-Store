@@ -84,7 +84,7 @@ export default function BasketPage() {
                   <LoadingButton
                     aria-label="add item to cart"
                     color="secondary"
-                    loading={status === `pendingAddItem${item.productId} `}
+                    loading={status === `pendingAddItem${item.productId}`}
                     onClick={() =>dispatch(addItemToBasketAsync({productId: item.productId}))}
                   >
                     <Add />
