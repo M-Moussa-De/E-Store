@@ -7,7 +7,7 @@ import { Metadata } from "../../app/models/pagination";
 interface CatalogState {
     productsLoaded: boolean;
     filtersLoaded: boolean;
-    status: 'idle' | 'pendingFeatchProducts' | 'pendingFeatchProduct' | 'pendingFeatchFilters';
+    status: 'idle' | 'pendingFetchProducts' | 'pendingFetchProduct' | 'pendingFetchFilters';
     brands: string[];
     types: string[];
     productParams: ProductParams;
@@ -103,7 +103,7 @@ export const catalogSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchProductsAsync.pending, (state) => {
-            state.status = 'pendingFeatchProducts' ;
+            state.status = 'pendingFetchProducts' ;
         })
         builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
             productAdapter.setAll(state, action.payload);
@@ -115,7 +115,7 @@ export const catalogSlice = createSlice({
             console.log(action)
         })
         builder.addCase(fetchProductAsync.pending, (state) => {
-            state.status = 'pendingFeatchProduct';
+            state.status = 'pendingFetchProduct';
         })
         builder.addCase(fetchProductAsync.fulfilled, (state, action) => {
             productAdapter.upsertOne(state, action.payload);
@@ -127,7 +127,7 @@ export const catalogSlice = createSlice({
             console.log(action)
         })
         builder.addCase(fetchFiltersAsync.pending, (state) => {
-            state.status = 'pendingFeatchFilters';
+            state.status = 'pendingFetchFilters';
         })
         builder.addCase(fetchFiltersAsync.fulfilled, (state, action) => {
             state.brands = action.payload.brands;
