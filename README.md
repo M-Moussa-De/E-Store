@@ -12,6 +12,7 @@ This is an E-Store where users explore, search, filter, add product/s into the c
 - TypeScript
 - Axios
 - Material UI
+- React Hook Form
 
 <b>Back-End</b>
 

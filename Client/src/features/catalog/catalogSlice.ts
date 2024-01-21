@@ -67,7 +67,7 @@ function initParams(): ProductParams {
     return {
         orderBy: 'name',
         pageNumber: 1,
-        pageSize: 6,
+        pageSize: 15,
         brands: [],
         types: []
     }

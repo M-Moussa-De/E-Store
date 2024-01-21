@@ -31,7 +31,7 @@ export default function BasketPage() {
         </Typography>
 
         <Link to="/catalog">
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="primary">
             Continue shopping
           </Button>
         </Link>

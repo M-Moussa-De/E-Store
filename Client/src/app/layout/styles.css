@@ -1,4 +1,24 @@
 body {
   overflow-x: hidden;
   width: 100vw;
+  max-width: 100%;
+  overflow-y: scroll;
+}
+
+.MuiCard-root {
+  box-shadow: 0 5px 5px #eee !important;
+}
+
+.MuiPaper-elevation1 {
+  box-shadow: 0 3px 3px #eee !important;
+}
+
+.MuiCardHeader-root,
+.MuiCardContent-root,
+.MuiCardActions-root {
+  padding: 7px !important;
+}
+
+h5.MuiTypography-root {
+  font-size: 1.2rem !important;
 }
