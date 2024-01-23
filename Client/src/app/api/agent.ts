@@ -92,13 +92,21 @@ const Account = {
     login: (values: any) => requests.post('account/login', values),
     register: (values: any) => requests.post('account/register', values),
     currentUser: () => requests.get('account/currentUser'),
+    fetchAddress: () => requests.get('account/savedAddress'),
+}
+
+const Orders = {
+    list: () => requests.get('orders'),
+    details: (id: number) => requests.get(`orders/${id}`),
+    create: (order: any) => requests.post('orders', order),
 }
 
 const agent = {
     Catalog,
     TestErrors,
     Basket,
-    Account
+    Account,
+    Orders
 }
 
 export default agent;
