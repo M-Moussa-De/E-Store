@@ -9,7 +9,7 @@ This is a fully functional E-Store where users can create accounts and login - e
 - Pagination
 - Search products, Filter Products
 - Place orders & show them.
-- Checkout (Payment using Strip)
+- Checkout (Payment using Strip) - Taking Payments, Webhooks, PCI Compliance, Save storage of app secrets in the code (Secret Manager)
 - Dark & Light mode
 
 ## Used Tools and Technologies
