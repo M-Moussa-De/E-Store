@@ -17,6 +17,7 @@ export default function ProductCardSkeleton() {
             variant="circular"
             width={40}
             height={40}
+            sx={{ bgcolor: "#F7FAFC" }}
           />
         }
         title={
@@ -24,21 +25,21 @@ export default function ProductCardSkeleton() {
             animation="wave"
             height={10}
             width="80%"
-            style={{ marginBottom: 6 }}
+            sx={{ mb: 6, bgcolor: "#F7FAFC" }}
           />
         }
       />
-      <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+      <Skeleton sx={{ height: 190, bgcolor: "#F7FAFC" }} animation="wave" variant="rectangular" />
       <CardContent>
         <>
-          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-          <Skeleton animation="wave" height={10} width="80%" />
+          <Skeleton animation="wave" height={10} sx={{ mb: 6, bgcolor: "#F7FAFC" }} />
+          <Skeleton animation="wave" height={10} width="80%" sx={{bgcolor: "#F7FAFC"}} />
         </>
       </CardContent>
       <CardActions>
         <>
-          <Skeleton animation="wave" height={10} width="40%" />
-          <Skeleton animation="wave" height={10} width="20%" />
+          <Skeleton animation="wave" height={10} width="40%" sx={{bgcolor: "F7FAFC"}} />
+          <Skeleton animation="wave" height={10} width="20%" sx={{bgcolor: "F7FAFC"}} />
         </>
       </CardActions>
     </Grid>

@@ -46,7 +46,7 @@ function App() {
     palette: {
       mode: paletteType,
       background: {
-        default: paletteType === "light" ? "#f8f9fc" : "#121212",
+        default: paletteType === "light" ? "#F7FAFC" : "#121212",
       },
     },
   });

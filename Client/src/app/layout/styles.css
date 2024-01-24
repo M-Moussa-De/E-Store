@@ -5,12 +5,8 @@ body {
   overflow-y: scroll;
 }
 
-.MuiCard-root {
-  box-shadow: 0 5px 5px #eee !important;
-}
-
-.MuiPaper-elevation1 {
-  box-shadow: 0 3px 3px #eee !important;
+.MuiCard-root, .MuiPaper-elevation1 {
+  box-shadow: 0 5px 5px rgba( 0 0 0 /0.05) !important;
 }
 
 .MuiCardHeader-root,
