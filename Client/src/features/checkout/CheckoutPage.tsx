@@ -19,7 +19,11 @@ import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { clearBasket } from "../basket/basketSlice";
 import { LoadingButton } from "@mui/lab";
 import { StripeElementType } from "@stripe/stripe-js";
-import { CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import {
+  CardNumberElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 
 const steps = ["Shipping address", "Review your order", "Payment details"];
 
@@ -28,11 +32,17 @@ export default function CheckoutPage() {
   const [orderNumber, setOrderNumber] = useState(0);
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const [cardState, setCardState] = useState<{elementError: {[key in StripeElementType]?: string}}>({elementError: {}});
-  const [cardComplete, setCardComplete] = useState<any>({cardNumber: false, cardExpiry: false, cardCvc: false});
-  const [paymentMessage, setPaymentMessage] = useState('');
+  const [cardState, setCardState] = useState<{
+    elementError: { [key in StripeElementType]?: string };
+  }>({ elementError: {} });
+  const [cardComplete, setCardComplete] = useState<any>({
+    cardNumber: false,
+    cardExpiry: false,
+    cardCvc: false,
+  });
+  const [paymentMessage, setPaymentMessage] = useState("");
   const [paymentSucceeded, setpaymentSucceeded] = useState(false);
-  const {basket} = useAppSelector(state => state.basket);
+  const { basket } = useAppSelector((state) => state.basket);
   const stripe = useStripe();
   const elements = useElements();
 
@@ -41,10 +51,10 @@ export default function CheckoutPage() {
       ...cardState,
       elementError: {
         ...cardState.elementError,
-        [event.elementType]: event.error?.message
-      }
+        [event.elementType]: event.error?.message,
+      },
     });
-    setCardComplete({...cardComplete, [event.elementType]: event.complete});
+    setCardComplete({ ...cardComplete, [event.elementType]: event.complete });
   }
 
   function getStepContent(step: number) {
@@ -54,7 +64,12 @@ export default function CheckoutPage() {
       case 1:
         return <Review />;
       case 2:
-        return <PaymentForm cardState={cardState} onCardInputChange={onCardInputChange} />;
+        return (
+          <PaymentForm
+            cardState={cardState}
+            onCardInputChange={onCardInputChange}
+          />
+        );
       default:
         throw new Error("Unknown step");
     }
@@ -70,42 +85,45 @@ export default function CheckoutPage() {
   useEffect(() => {
     agent.Account.fetchAddress()
     .then((response) => {
-      if(response) {
+      if (response) {
         methods.reset({...methods.getValues(), ...response, saveAddress: false});
       }
-    })
-  }, [methods])
+    });
+  }, [methods]);
 
   async function submitOrder(data: FieldValues) {
     setLoading(true);
-    const {nameOnCard, saveAddress, ...shippingAddress} = data;
+    const { nameOnCard, saveAddress, ...shippingAddress } = data;
 
-    if(!stripe || !elements) return; // Stripe.js has not loaded yet. Make sure to disable form submission until Stripe.js has loaded.
+    if (!stripe || !elements) return; // Stripe.js has not loaded yet. Make sure to disable form submission until Stripe.js has loaded.
 
     try {
       const cardElement = elements.getElement(CardNumberElement);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-      const paymentResult = await stripe.confirmCardPayment(basket?.clientSecret!, {
-        payment_method: {
-          card: cardElement!,
-          billing_details: {
-            name: nameOnCard,
-          }
+      const paymentResult = await stripe.confirmCardPayment(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+        basket?.clientSecret!,
+        {
+          payment_method: {
+            card: cardElement!,
+            billing_details: {
+              name: nameOnCard,
+            },
+          },
         }
-      });
+      );
 
       console.log(paymentResult);
 
-      if(paymentResult.paymentIntent?.status === 'succeeded') {
-          const orderNumber = await agent.Orders.create({saveAddress, shippingAddress});
-          setOrderNumber(orderNumber);
-          setpaymentSucceeded(true);
-          setPaymentMessage('Thank you - your payment has been successfully processed');
-          setActiveStep(activeStep + 1);
-          dispatch(clearBasket());
-          setLoading(false);
+      if (paymentResult.paymentIntent?.status === "succeeded") {
+        const orderNumber = await agent.Orders.create({saveAddress,shippingAddress});
+        setOrderNumber(orderNumber);
+        setpaymentSucceeded(true);
+        setPaymentMessage("Thank you - your payment has been successfully processed");
+        setActiveStep(activeStep + 1);
+        dispatch(clearBasket());
+        setLoading(false);
       } else {
-        setPaymentMessage(paymentResult.error?.message || 'Payment failed');
+        setPaymentMessage(paymentResult.error?.message || "Payment failed");
         setpaymentSucceeded(false);
         setLoading(false);
         setActiveStep(activeStep + 1);
@@ -114,28 +132,28 @@ export default function CheckoutPage() {
       console.log(error);
       setLoading(false);
     }
-
-    
   }
 
-  const handleNext = async (data: FieldValues) => {  
+  const handleNext = async (data: FieldValues) => {
     if (activeStep === steps.length - 1) {
       await submitOrder(data);
     } else {
-     setActiveStep(activeStep + 1);
+      setActiveStep(activeStep + 1);
     }
-  }
+  };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
   function submitDisabled(): boolean {
-    if(activeStep === steps.length - 1) {
-      return !cardComplete.cardNumber 
-           || !cardComplete.cardExpiry 
-           || !cardComplete.cardCvc
-           || !methods.formState.isValid;
+    if (activeStep === steps.length - 1) {
+      return (
+        !cardComplete.cardCvc ||
+        !cardComplete.cardExpiry ||
+        !cardComplete.cardNumber ||
+        !methods.formState.isValid
+      );
     } else {
       return !methods.formState.isValid;
     }
@@ -164,11 +182,11 @@ export default function CheckoutPage() {
                 {paymentMessage}
               </Typography>
               {paymentSucceeded ? (
-              <Typography variant="subtitle1">
-                Your order number is #{orderNumber}. We have not emailed your order
-                confirmation, and will not send you an update when your order has
-                shipped as this is a fake stror!
-              </Typography>
+                <Typography variant="subtitle1">
+                  Your order number is #{orderNumber}. We have not emailed your
+                  order confirmation, and will not send you an update when your
+                  order has shipped as this is a fake stror!
+                </Typography>
               ) : (
                 <Button variant="contained" onClick={handleBack}>
                   Go back and try again

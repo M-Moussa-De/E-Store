@@ -29,6 +29,7 @@ This is a fully functional E-Store where users can create accounts and login - e
 - .Net 7 (API)
 - Entity Framework
 - LINQ
+- User secrets (for saving secret keys safly)
 - Strip API
 - SQLite (Devlopment)
 - PostgreSQL (Production)

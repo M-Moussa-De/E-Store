@@ -54,17 +54,21 @@ namespace API.Controllers
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
 
-            var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], _config["StripeSettings:WhSecret"]);
+            EventUtility.ValidateSignature(json, Request.Headers["Stripe-Signature"], _config["StripeSettings:WhSecret"]);
 
-            var charge = stripeEvent.Data.Object as Charge;
+            var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], _config["StripeSettings:WhSecret"], 300,
+                            (long)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds,
+                            false);
+
+            var charge = (Charge)stripeEvent.Data.Object;
 
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.PaymentIntentId == charge.PaymentIntentId);
 
-            if(charge.Status == "succeeded") order.OrderStatus = OrderStatus.PaymentReceived;
+            if (charge.Status == "succeeded") order.OrderStatus = OrderStatus.PaymentReceived;
 
             await _context.SaveChangesAsync();
 
-            return new EmptyResult();           
+            return new EmptyResult();
         }
     }
 }

@@ -75,11 +75,11 @@ namespace API.Controllers
 
             var order = new Order
             {
-                BuyerId = User.Identity.Name,
                 OrderItems = items,
-                DeliveryFee = deliveryFee,
+                BuyerId = User.Identity.Name,
                 ShippingAddress = orderDto.ShippingAddress,
                 Subtotal = subtotal,
+                DeliveryFee = deliveryFee,
                 PaymentIntentId = basket.PaymentIntentId
             };
 
