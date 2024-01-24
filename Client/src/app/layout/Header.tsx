@@ -64,7 +64,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
     <AppBar
       elevation={0}
       position="static"
-      sx={{ mb: 4, width: "100%", maxWidth: "100%" }}
+      sx={{ width: "100%", maxWidth: "100%" }}
     >
       <Toolbar
         sx={{
