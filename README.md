@@ -1,6 +1,16 @@
 # E-Store App
 
-This is an E-Store where users explore, search, filter, add product/s into the cart and check out.
+This is a fully functional E-Store where users can create accounts and login - explore, search, filter, add/remove product/s into/from the basket, place orders and checkout.
+
+## Available Features
+
+- Authentication & Authorization (Register, Login, Roles, Logout)
+- Catalog (Check products, show product details, add product into basket, remove product from basket)
+- Pagination
+- Search products, Filter Products
+- Place orders & show them.
+- Checkout (Payment using Strip)
+- Dark & Light mode
 
 ## Used Tools and Technologies
 
@@ -19,5 +29,6 @@ This is an E-Store where users explore, search, filter, add product/s into the c
 - .Net 7 (API)
 - Entity Framework
 - LINQ
+- Strip API
 - SQLite (Devlopment)
 - PostgreSQL (Production)
