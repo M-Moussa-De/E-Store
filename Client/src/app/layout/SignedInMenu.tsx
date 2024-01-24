@@ -7,6 +7,7 @@ import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Link } from "react-router-dom";
 
 export default function SignedInMenu() {
   const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ export default function SignedInMenu() {
           <PermIdentityOutlinedIcon />
           <span style={{ marginLeft: "10px" }}>Profile</span>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem component={Link} to='/orders' onClick={handleClose}>
           <ShoppingBagOutlinedIcon />{" "}
           <span style={{ marginLeft: "10px" }}>My orders</span>
         </MenuItem>
