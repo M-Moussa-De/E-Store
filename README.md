@@ -18,10 +18,11 @@ This is a fully functional E-Store where users can create accounts and login - e
 
 - Vite
 - React
+- React Router Dom
 - Redux/Redux Toolkit/Redux Thunk
 - TypeScript
 - Axios
-- Material UI
+- Material UI & Material Icons
 - React Hook Form
 
 <b>Back-End</b>
@@ -33,3 +34,8 @@ This is a fully functional E-Store where users can create accounts and login - e
 - Strip API
 - SQLite (Devlopment)
 - PostgreSQL (Production)
+
+<b>Others</b>
+
+- Docker & Docker Compose
+- Git & Github

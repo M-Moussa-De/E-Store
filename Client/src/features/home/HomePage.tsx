@@ -16,15 +16,15 @@ export default function HomePage() {
   <>
     <Slider {...settings}>
       <div>
-       <img src="/images/hero1.jpg" alt="hero" style={{display: 'block', width: '100%', height: '650px', objectFit: 'cover'}} />
+       <img src="/images/hero1.jpg" alt="hero" style={{display: 'block', width: '100%', height: '400px', objectFit: 'cover'}} />
       </div>
       
       <div>
-       <img src="/images/hero2.jpg" alt="hero" style={{display: 'block', width: '100%', height: '650px',  objectFit: 'cover'}} />
+       <img src="/images/hero2.jpg" alt="hero" style={{display: 'block', width: '100%', height: '400px',  objectFit: 'cover'}} />
       </div>
 
       <div>
-       <img src="/images/hero3.jpg" alt="hero" style={{display: 'block', width: '100%', height: '650px',  objectFit: 'cover'}} />
+       <img src="/images/hero3.jpg" alt="hero" style={{display: 'block', width: '100%', height: '400px',  objectFit: 'cover'}} />
       </div>
     </Slider>
 
