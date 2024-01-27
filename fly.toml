@@ -5,13 +5,16 @@
 
 app = 'new-estore'
 primary_region = 'ams'
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[build]
+  image = 'mahmoud2023/estore:latest'
 
 [env]
   ASPNETCORE_URLS="http://+:8080"
   StripeSettings__PublishableKey="pk_test_51Lp7b3DBoreCv1RzqBO5oSv14H1khSKxyoSM0WAmbCXRfXcVK6JNk9EltNwtvirDlEaB61nAsXoq5LgjZ21F8Saw00q81BHxag"
-
-[build]
-  image = 'mahmoud2023/estore:latest'
 
 [http_service]
   internal_port = 8080
