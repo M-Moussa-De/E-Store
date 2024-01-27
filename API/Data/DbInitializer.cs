@@ -33,6 +33,17 @@ namespace API.Data
                     Type = "Boards",
                     QuantityInStock = 100
                 },
+               new Product
+                {
+                    Name = "Backpack",
+                    Description =
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 25000,
+                    PictureUrl = "/images/products/backpack.jpg",
+                    Brand = "Telsa",
+                    Type = "Backpacks",
+                    QuantityInStock = 100
+                },
                 new Product
                 {
                     Name = "Green Angular Board 3000",
