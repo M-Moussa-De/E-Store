@@ -35,10 +35,16 @@ This is a fully functional E-Store where users can create accounts and login - e
 - SQLite (Devlopment)
 - PostgreSQL (Production)
 
+<b>Deployment</b>
+
+- Fly IO
+- Github actions
+- CI/CD
+
 <b>Others</b>
 
 - CLI
-- Docker & Docker Compose
+- Docker
 - Git & Github
 
 ## Some of the used CLI commands
